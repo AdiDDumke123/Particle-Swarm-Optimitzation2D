@@ -11,7 +11,9 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-    }@FXML
+    }
+
+    @FXML
     public void draw() {
     }
 
