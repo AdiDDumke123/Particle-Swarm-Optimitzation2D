@@ -35,15 +35,7 @@ class Particle {
      * @return      the evaluation
      */
     private double eval () {
-        if (function == FunctionType.FunctionA) {
-            return Function.functionA(position.getX());
-        } else if (function == FunctionType.Ackleys) {
-            return Function.ackleysFunction(position.getX(), position.getY());
-        } else if (function == FunctionType.Booths) {
-            return Function.boothsFunction(position.getX(), position.getY());
-        } else {
-            return Function.threeHumpCamelFunction(position.getX(), position.getY());
-        }
+        return Function.rosenbrock(position.getX(), position.getY());
     }
 
     private void setRandomPosition (int beginRange, int endRange) {

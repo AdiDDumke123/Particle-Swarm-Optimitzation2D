@@ -3,12 +3,24 @@ package PSO;
 class Function {
 
     /**
+     * Rosenbrock banana function:
+     * f(x,y) = (x-1)² + 10(x²-y)²
+     * with {x, y} e [-1, 1.5]x[-1, 1.5]
+     * Minimum: {1,1}
+     */
+    static double rosenbrock(double x, double y){
+        double p1 = Math.pow(x-1, 2);
+        double p2 = Math.pow(x, 2) - y;
+        return p1 + 10 * Math.pow(p2, 2);
+    }
+
+    /**
      * Calculate the result of (x^4)-2(x^3).
      * Domain is (-infinity, infinity).
      * Minimum is -1.6875 at x = 1.5.
      * @param x     the x component
      * @return      the y component
-     */
+     *
     static double functionA (double x) {
         return Math.pow(x, 4) - 2 * Math.pow(x, 3);
     }
@@ -20,7 +32,7 @@ class Function {
      * @param x     the x component
      * @param y     the y component
      * @return      the z component
-     */
+     *
     static double ackleysFunction (double x, double y) {
         double p1 = -20*Math.exp(-0.2*Math.sqrt(0.5*((x*x)+(y*y))));
         double p2 = Math.exp(0.5*(Math.cos(2*Math.PI*x)+Math.cos(2*Math.PI*y)));
@@ -34,7 +46,7 @@ class Function {
      * @param x     the x component
      * @param y     the y component
      * @return      the z component
-     */
+     *
     static double boothsFunction (double x, double y) {
         double p1 = Math.pow(x + 2*y - 7, 2);
         double p2 = Math.pow(2*x + y - 5, 2);
@@ -46,12 +58,12 @@ class Function {
      * @param x     the x component
      * @param y     the y component
      * @return      the z component
-     */
+     *
     static double threeHumpCamelFunction (double x, double y) {
         double p1 = 2*x*x;
         double p2 = 1.05*Math.pow(x, 4);
         double p3 = Math.pow(x, 6) / 6;
         return p1 - p2 + p3 + x*y + y*y;
-    }
+    }*/
 
 }
