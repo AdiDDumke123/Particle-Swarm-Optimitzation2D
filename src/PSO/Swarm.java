@@ -1,7 +1,5 @@
 package PSO;
 
-import java.util.Random;
-
 /**
  * Represents a swarm of particles from the Particle Swarm Optimization algorithm.
  */
@@ -127,7 +125,7 @@ public class Swarm {
         Vector gBest = bestPosition.clone();
         Vector pos = particle.getPosition();
 
-        Random random = new Random();
+        MersenneTwister random = new MersenneTwister();
         double r1 = random.nextDouble();
         double r2 = random.nextDouble();
 

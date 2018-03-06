@@ -1,7 +1,5 @@
 package PSO;
 
-import java.util.Random;
-
 /**
  * Represents a particle from the Particle Swarm Optimization algorithm.
  */
@@ -50,7 +48,7 @@ class Particle {
      * @return              the randomly generated value
      */
     private static int rand (int beginRange, int endRange) {
-        Random r = new Random();
+        MersenneTwister r = new MersenneTwister();
         return r.nextInt(endRange - beginRange) + beginRange;
     }
 
