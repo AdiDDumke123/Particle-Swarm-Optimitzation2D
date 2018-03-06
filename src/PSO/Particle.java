@@ -11,18 +11,16 @@ class Particle {
     private Vector velocity;
     private Vector bestPosition;    // Personal best solution.
     private double bestEval;        // Personal best value.
-    private FunctionType function;  // The evaluation function to use.
 
     /**
      * Construct a Particle with a random starting position.
      * @param beginRange    the minimum xyz values of the position (inclusive)
      * @param endRange      the maximum xyz values of the position (exclusive)
      */
-    Particle (FunctionType function, int beginRange, int endRange) {
+    Particle (int beginRange, int endRange) {
         if (beginRange >= endRange) {
             throw new IllegalArgumentException("Begin range must be less than end range.");
         }
-        this.function = function;
         position = new Vector();
         velocity = new Vector();
         setRandomPosition(beginRange, endRange);
@@ -113,12 +111,4 @@ class Particle {
     void setVelocity (Vector velocity) {
         this.velocity = velocity.clone();
     }
-
-    public enum FunctionType {
-        FunctionA,
-        Ackleys,
-        Booths,
-        ThreeHumpCamel
-    }
-
 }

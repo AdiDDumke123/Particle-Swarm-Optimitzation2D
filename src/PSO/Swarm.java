@@ -1,7 +1,5 @@
 package PSO;
 
-import PSO.Particle.FunctionType;
-
 import java.util.Random;
 
 /**
@@ -13,7 +11,6 @@ public class Swarm {
     private double inertia, cognitiveComponent, socialComponent;
     private Vector bestPosition;
     private double bestEval;
-    private FunctionType function; // The function to search.
     public static final double DEFAULT_INERTIA = 0.729844;
     public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
     public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
@@ -33,8 +30,8 @@ public class Swarm {
      * @param particles     the number of particles to create
      * @param epochs        the number of generations
      */
-    public Swarm (FunctionType function, int particles, int epochs) {
-        this(function, particles, epochs, DEFAULT_INERTIA, DEFAULT_COGNITIVE, DEFAULT_SOCIAL);
+    public Swarm (int particles, int epochs) {
+        this(particles, epochs, DEFAULT_INERTIA, DEFAULT_COGNITIVE, DEFAULT_SOCIAL);
     }
 
     /**
@@ -45,13 +42,12 @@ public class Swarm {
      * @param cognitive     the cognitive component or introversion of the particle
      * @param social        the social component or extroversion of the particle
      */
-    public Swarm (FunctionType function, int particles, int epochs, double inertia, double cognitive, double social) {
+    public Swarm (int particles, int epochs, double inertia, double cognitive, double social) {
         this.numOfParticles = particles;
         this.epochs = epochs;
         this.inertia = inertia;
         this.cognitiveComponent = cognitive;
         this.socialComponent = social;
-        this.function = function;
         double infinity = Double.POSITIVE_INFINITY;
         bestPosition = new Vector(infinity, infinity, infinity);
         bestEval = Double.POSITIVE_INFINITY;
@@ -89,9 +85,7 @@ public class Swarm {
 
         System.out.println("---------------------------RESULT---------------------------");
         System.out.println("x = " + bestPosition.getX());
-        if (function != FunctionType.FunctionA) {
-            System.out.println("y = " + bestPosition.getY());
-        }
+        System.out.println("y = " + bestPosition.getY());
         System.out.println("Final Best Evaluation: " + bestEval);
         System.out.println("---------------------------COMPLETE-------------------------");
 
@@ -104,7 +98,7 @@ public class Swarm {
     private Particle[] initialize () {
         Particle[] particles = new Particle[numOfParticles];
         for (int i = 0; i < numOfParticles; i++) {
-            Particle particle = new Particle(function, beginRange, endRange);
+            Particle particle = new Particle(beginRange, endRange);
             particles[i] = particle;
             updateGlobalBest(particle);
         }
