@@ -2,5 +2,5 @@ package Drawer;
 
 public enum  Configuration {
     instance;
-    public int scaleValue=50;
+    public double scaleValue=2;
 }
