@@ -2,31 +2,31 @@ package PSO;
 
 import java.util.Scanner;
 
-public class Main {
+public class Algorithm {
 
-    public static void main (String[] args) {
-        menu();
-    }
+    int particles, epochs;
 
-    private static void menu () {
+    public void menu () {
         Swarm swarm;
-        int particles, epochs;
-
-        particles = getUserInt("Particles: ");
-        epochs = getUserInt("Epochs:    ");
-
         swarm = new Swarm(particles, epochs);
         swarm.run();
     }
 
-    private static int getUserInt (String msg) {
+    public void setParticles(int particles){
+        this.particles = particles;
+    }
+    public void setEpochs(int epochs){
+        this.epochs = epochs;
+    }
+
+    /*private int getUserInt () {
         int input;
         while (true) {
             Scanner sc = new Scanner(System.in);
-            System.out.print(msg);
 
             if (sc.hasNextInt()) {
                 input = sc.nextInt();
+                System.out.print(input);
 
                 if (input <= 0) {
                     System.out.println("Number must be positive.");
@@ -39,5 +39,5 @@ public class Main {
             }
         }
         return input;
-    }
+    }*/
 }
