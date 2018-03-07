@@ -2,6 +2,7 @@ package PSO;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import Drawer.Drawer;
+
 import javafx.scene.paint.Color;
 import java.awt.*;
 
