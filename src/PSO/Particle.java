@@ -3,7 +3,7 @@ package PSO;
 /**
  * Represents a particle from the Particle Swarm Optimization algorithm.
  */
-class Particle {
+public class Particle {
 
     private Vector position;        // Current position.
     private Vector velocity;
@@ -67,7 +67,7 @@ class Particle {
      * Get a copy of the position of the particle.
      * @return  the x position
      */
-    Vector getPosition () {
+   public Vector getPosition () {
         return position.clone();
     }
 
@@ -75,7 +75,7 @@ class Particle {
      * Get a copy of the velocity of the particle.
      * @return  the velocity
      */
-    Vector getVelocity () {
+   public Vector getVelocity () {
         return velocity.clone();
     }
 
@@ -83,7 +83,7 @@ class Particle {
      * Get a copy of the personal best solution.
      * @return  the best position
      */
-    Vector getBestPosition() {
+   public Vector getBestPosition() {
         return bestPosition.clone();
     }
 

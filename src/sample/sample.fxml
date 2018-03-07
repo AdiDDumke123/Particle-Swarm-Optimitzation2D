@@ -9,8 +9,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-    <Canvas fx:id="canvas" height="600.0" width="600.0" layoutX="5" layoutY="5" />
+<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <Canvas fx:id="canvas" height="800.0" width="800.0" layoutX="5" layoutY="5" />
     <Button layoutX="50.0" layoutY="50.0" onAction="#draw" text="Start" />
     <Slider fx:id="swarmslider" layoutX="50.0" layoutY="100.0" onMouseReleased="#setSwarmsize" min="0" max="1000" majorTickUnit="1"/>
     <Text text="slice Value" layoutX="200.0" layoutY="110.0"/>

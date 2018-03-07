@@ -1,10 +1,15 @@
 package PSO;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import Drawer.Drawer;
+import javafx.scene.paint.Color;
+import java.awt.*;
 
 /**
  * Represents a swarm of particles from the Particle Swarm Optimization algorithm.
  */
 public class Swarm {
-
+    Drawer drawer;
     private int numOfParticles, epochs;
     private double inertia, cognitiveComponent, socialComponent;
     private Vector bestPosition;
@@ -28,8 +33,9 @@ public class Swarm {
      * @param particles     the number of particles to create
      * @param epochs        the number of generations
      */
-    public Swarm (int particles, int epochs) {
+    public Swarm (int particles, int epochs, Canvas canvas, GraphicsContext gc) {
         this(particles, epochs, DEFAULT_INERTIA, DEFAULT_COGNITIVE, DEFAULT_SOCIAL);
+        drawer = new Drawer(canvas,gc);
     }
 
     /**
@@ -97,6 +103,7 @@ public class Swarm {
         Particle[] particles = new Particle[numOfParticles];
         for (int i = 0; i < numOfParticles; i++) {
             Particle particle = new Particle(beginRange, endRange);
+            drawer.drawParticle(particle, Color.BLACK);
             particles[i] = particle;
             updateGlobalBest(particle);
         }

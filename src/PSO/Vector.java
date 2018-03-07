@@ -3,7 +3,7 @@ package PSO;
 /**
  * Can represent a position as well as a velocity.
  */
-class Vector {
+public class Vector {
 
     private double x, y, z;
     private double limit = Double.MAX_VALUE;
@@ -18,15 +18,15 @@ class Vector {
         this.z = z;
     }
 
-    double getX () {
+    public double getX () {
         return x;
     }
 
-    double getY () {
+    public double getY () {
         return y;
     }
 
-    double getZ () {
+    public double getZ () {
         return z;
     }
 
