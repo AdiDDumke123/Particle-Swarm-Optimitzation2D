@@ -85,8 +85,10 @@ public class Swarm {
             for (Particle p : particles) {
                 updateVelocity(p);
                 p.updatePosition();
+                drawer.drawParticle(p,Color.RED);
             }
         }
+
 
         System.out.println("---------------------------RESULT---------------------------");
         System.out.println("x = " + bestPosition.getX());

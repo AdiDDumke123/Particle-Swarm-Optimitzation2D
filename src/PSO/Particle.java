@@ -100,6 +100,7 @@ public class Particle {
      */
     void updatePosition () {
         this.position.add(velocity);
+
     }
 
     /**
