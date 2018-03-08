@@ -72,7 +72,7 @@ public class Swarm {
 
         for (int i = 0; i < epochs; i++) {
             //Thread.sleep(500);
-            drawer.clearField(startParticles);
+           drawer.clearField(startParticles);
             if (bestEval < oldEval) {
                 System.out.println("Global Best Evaluation (Epoch " + (i + 1) + "):\t" + bestEval);
                 oldEval = bestEval;
@@ -87,7 +87,12 @@ public class Swarm {
                 updateVelocity(p);
                 p.updatePosition();
                 drawer.drawParticle(p,Color.RED,3);
+                drawer.updateGraphicsContext();
             }
+
+        }
+        for(Particle p : particles){
+            drawer.drawParticle(p,Color.BLUE,5);
         }
 
 
