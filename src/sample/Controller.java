@@ -26,12 +26,11 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
          gc = canvas.getGraphicsContext2D();
-         gc.setFill(Color.WHITE);
-         gc.fillRect(0,0,900,900);
          algorithm = new Algorithm(canvas,gc);
     }
     @FXML
-    public void draw() {
+    public void draw() throws InterruptedException {
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         algorithm.menu();
     }
     @FXML

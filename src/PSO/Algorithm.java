@@ -18,7 +18,7 @@ public class Algorithm {
 
     int particles, epochs;
 
-    public void menu () {
+    public void menu () throws InterruptedException {
         Swarm swarm;
         swarm = new Swarm(particles, epochs,canvas,gc);
         swarm.run();

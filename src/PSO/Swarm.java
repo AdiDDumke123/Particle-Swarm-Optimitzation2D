@@ -63,15 +63,16 @@ public class Swarm {
     /**
      * Execute the algorithm.
      */
-    public void run () {
+    public void run () throws InterruptedException {
         Particle[] particles = initialize();
-
+        Particle[] startParticles = particles.clone();
         double oldEval = bestEval;
         System.out.println("--------------------------EXECUTING-------------------------");
         System.out.println("Global Best Evaluation (Epoch " + 0 + "):\t"  + bestEval);
 
         for (int i = 0; i < epochs; i++) {
-
+            //Thread.sleep(500);
+            drawer.clearField(startParticles);
             if (bestEval < oldEval) {
                 System.out.println("Global Best Evaluation (Epoch " + (i + 1) + "):\t" + bestEval);
                 oldEval = bestEval;
@@ -85,7 +86,7 @@ public class Swarm {
             for (Particle p : particles) {
                 updateVelocity(p);
                 p.updatePosition();
-                drawer.drawParticle(p,Color.RED);
+                drawer.drawParticle(p,Color.RED,3);
             }
         }
 
@@ -106,7 +107,7 @@ public class Swarm {
         Particle[] particles = new Particle[numOfParticles];
         for (int i = 0; i < numOfParticles; i++) {
             Particle particle = new Particle(beginRange, endRange);
-            drawer.drawParticle(particle, Color.BLACK);
+            drawer.drawParticle(particle, Color.BLACK,5);
             particles[i] = particle;
             updateGlobalBest(particle);
         }
