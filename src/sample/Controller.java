@@ -13,11 +13,13 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 public class Controller implements Initializable {
     @FXML
     Canvas canvas;
     private GraphicsContext gc;
+    private PSO.Function banana = new PSO.Function();
 
     private Algorithm algorithm;
 
@@ -29,14 +31,12 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(Duration.seconds(0.5));
          gc = canvas.getGraphicsContext2D();
          algorithm = new Algorithm(this);
     }
     @FXML
     public void draw() {
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+        //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         Thread thread = new Thread(algorithm);
         thread.setDaemon(true);
         thread.start();
@@ -69,6 +69,8 @@ public class Controller implements Initializable {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.setFill(Color.BLUE);
         gc.fillOval(scaleValue(1)-7,scaleValue(1)-7,15,15);
+        drawBananaFunction();
+
     }
 
     public void doDrawParticle(double x, double y){
@@ -79,6 +81,20 @@ public class Controller implements Initializable {
         gc.setFill(Color.RED);
         gc.fillRect(scaleValue(x),scaleValue(y),3,3);
     }
+    private void drawBananaFunction(){
+        for (int i=-100;i<100;i++){
+            for(int u=-100; u<100;u++){
+                double result = banana.rosenbrock(u,i);
+                result = (result*0.0000000000001)+0.1;
+                gc.setFill(Color.color(result,result,result,1));
+                //gc.setFill(Color.color(1,1,1,1));
+                gc.fillRect(scaleValue(u),scaleValue(i),1,1);
+            }
+        }
+
+
+    }
+
 
     private double scaleValue(double value){
         //Eingabe zwischen -100 und 101

@@ -120,7 +120,6 @@ public class Swarm {
         Particle[] particles = new Particle[numOfParticles];
         for (int i = 0; i < numOfParticles; i++) {
             Particle particle = new Particle(beginRange, endRange);
-            //drawer.drawParticle(particle, Color.BLACK,5);
             particles[i] = particle;
             updateGlobalBest(particle);
         }
