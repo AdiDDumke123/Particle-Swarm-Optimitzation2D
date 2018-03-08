@@ -86,20 +86,17 @@ public class Controller implements Initializable {
         ArrayList<Double> temp = new ArrayList<>();
         for (int i=-100;i<100;i++){
             for(int u=-100; u<100;u++){
-                double result = banana.rosenbrock(u,i);
-                if(result>=100000000){
+                int result = (int)banana.rosenbrock(u,i);
+                if(result>=1000000000) {
+                    gc.setFill(Color.WHITE);
+                }
+                else{
                     gc.setFill(Color.BLACK);
-                }else if(result>=1000000){
-                    gc.setFill(Color.BLUE);
                 }
-                else if(result>=100000){
-                    gc.setFill(Color.RED);
-                }
-                temp.add(result);
+
                 gc.fillRect(scaleValue(u),scaleValue(i),1,1);
             }
         }
-        System.out.println("dummy");
     }
 
     private double scaleValue(double value){
