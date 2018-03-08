@@ -11,7 +11,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
@@ -70,7 +72,6 @@ public class Controller implements Initializable {
         gc.setFill(Color.BLUE);
         gc.fillOval(scaleValue(1)-7,scaleValue(1)-7,15,15);
         drawBananaFunction();
-
     }
 
     public void doDrawParticle(double x, double y){
@@ -82,19 +83,24 @@ public class Controller implements Initializable {
         gc.fillRect(scaleValue(x),scaleValue(y),3,3);
     }
     private void drawBananaFunction(){
+        ArrayList<Double> temp = new ArrayList<>();
         for (int i=-100;i<100;i++){
             for(int u=-100; u<100;u++){
                 double result = banana.rosenbrock(u,i);
-                result = (result*0.0000000000001)+0.1;
-                gc.setFill(Color.color(result,result,result,1));
-                //gc.setFill(Color.color(1,1,1,1));
+                if(result>=100000000){
+                    gc.setFill(Color.BLACK);
+                }else if(result>=1000000){
+                    gc.setFill(Color.BLUE);
+                }
+                else if(result>=100000){
+                    gc.setFill(Color.RED);
+                }
+                temp.add(result);
                 gc.fillRect(scaleValue(u),scaleValue(i),1,1);
             }
         }
-
-
+        System.out.println("dummy");
     }
-
 
     private double scaleValue(double value){
         //Eingabe zwischen -100 und 101

@@ -4,8 +4,6 @@
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/out/production/ParticleSwarmOptimization2D/sample/Controller.class" afterPath="$PROJECT_DIR$/out/production/ParticleSwarmOptimization2D/sample/Controller.class" />
-      <change beforePath="$PROJECT_DIR$/src/PSO/Function.java" afterPath="$PROJECT_DIR$/src/PSO/Function.java" />
-      <change beforePath="$PROJECT_DIR$/src/PSO/Swarm.java" afterPath="$PROJECT_DIR$/src/PSO/Swarm.java" />
       <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" afterPath="$PROJECT_DIR$/src/sample/Controller.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -67,12 +65,27 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="86" column="55" lean-forward="true" selection-start-line="86" selection-start-column="55" selection-end-line="86" selection-end-column="55" />
+            <state relative-caret-position="158">
+              <caret line="89" column="38" lean-forward="true" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2091#2092#0" expanded="true" />
-                <element signature="e#2158#2159#0" expanded="true" />
+                <element signature="e#2150#2151#0" expanded="true" />
+                <element signature="e#2217#2218#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clearCanvasTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/clearCanvasTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+              <folding>
+                <element signature="e#295#296#0" expanded="true" />
+                <element signature="e#339#340#0" expanded="true" />
+                <element signature="e#377#378#0" expanded="true" />
+                <element signature="e#417#418#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -439,7 +452,7 @@
       <workItem from="1520515279970" duration="39000" />
       <workItem from="1520524799446" duration="1660000" />
       <workItem from="1520526732017" duration="421000" />
-      <workItem from="1520545536558" duration="1263000" />
+      <workItem from="1520545536558" duration="2902000" />
     </task>
     <task id="LOCAL-00001" summary="controll swarmsize and epochsize by UI">
       <created>1520443181566</created>
@@ -497,11 +510,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520515006893</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="draw Bananafunction">
+      <created>1520546828776</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1520546828776</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27110000" />
+    <option name="totallyTimeSpent" value="28749000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -621,19 +641,20 @@
     <MESSAGE value="draw Algorithm" />
     <MESSAGE value="drawer class changes" />
     <MESSAGE value="draw problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="draw problem" />
+    <MESSAGE value="draw Bananafunction" />
+    <option name="LAST_COMMIT_MESSAGE" value="draw Bananafunction" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/sample/Controller.java</url>
-          <line>39</line>
+          <line>101</line>
           <properties />
-          <option name="timeStamp" value="13" />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="14" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -648,8 +669,8 @@
           <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -668,8 +689,8 @@
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -710,8 +731,8 @@
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -776,8 +797,8 @@
           <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -818,8 +839,8 @@
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -860,8 +881,8 @@
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -945,19 +966,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/clearCanvasTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="e#295#296#0" expanded="true" />
-            <element signature="e#339#340#0" expanded="true" />
-            <element signature="e#377#378#0" expanded="true" />
-            <element signature="e#417#418#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PSO/Swarm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2057">
@@ -1033,7 +1041,7 @@
         <state relative-caret-position="105">
           <caret line="1657" column="0" lean-forward="false" selection-start-line="1657" selection-start-column="0" selection-end-line="1657" selection-end-column="0" />
           <folding>
-            <element signature="e#66921#66922#0" expanded="true" />
+            <element signature="e#66921#66922#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1046,14 +1054,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/clearCanvasTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+          <folding>
+            <element signature="e#295#296#0" expanded="true" />
+            <element signature="e#339#340#0" expanded="true" />
+            <element signature="e#377#378#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="86" column="55" lean-forward="true" selection-start-line="86" selection-start-column="55" selection-end-line="86" selection-end-column="55" />
+        <state relative-caret-position="158">
+          <caret line="89" column="38" lean-forward="true" selection-start-line="89" selection-start-column="38" selection-end-line="89" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2091#2092#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
           </folding>
         </state>
       </provider>
