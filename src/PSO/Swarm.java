@@ -1,23 +1,19 @@
 package PSO;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import Drawer.Drawer;
 
-import javafx.scene.paint.Color;
-import java.awt.*;
+import sample.Controller;
 
 /**
  * Represents a swarm of particles from the Particle Swarm Optimization algorithm.
  */
 public class Swarm {
-    Drawer drawer;
+    private Controller controller;
     private int numOfParticles, epochs;
     private double inertia, cognitiveComponent, socialComponent;
     private Vector bestPosition;
     private double bestEval;
-    public static final double DEFAULT_INERTIA = 0.729844;
-    public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
-    public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
+    private static final double DEFAULT_INERTIA = 0.729844;
+    private static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
+    private static final double DEFAULT_SOCIAL = 1.496180; // Social component.
 
     /**
      * When Particles are created they are given a random position.
@@ -31,12 +27,13 @@ public class Swarm {
 
     /**
      * Construct the Swarm with default values.
+     * @param controller
      * @param particles     the number of particles to create
      * @param epochs        the number of generations
      */
-    public Swarm (int particles, int epochs, Canvas canvas, GraphicsContext gc) {
-        this(particles, epochs, DEFAULT_INERTIA, DEFAULT_COGNITIVE, DEFAULT_SOCIAL);
-        drawer = new Drawer(canvas,gc);
+    public Swarm (Controller controller, int particles, int epochs) {
+        this(controller, particles, epochs, DEFAULT_INERTIA, DEFAULT_COGNITIVE, DEFAULT_SOCIAL);
+        //drawer = new Drawer(canvas,gc);
     }
 
     /**
@@ -47,7 +44,8 @@ public class Swarm {
      * @param cognitive     the cognitive component or introversion of the particle
      * @param social        the social component or extroversion of the particle
      */
-    public Swarm (int particles, int epochs, double inertia, double cognitive, double social) {
+    public Swarm (Controller controller, int particles, int epochs, double inertia, double cognitive, double social) {
+        this.controller = controller;
         this.numOfParticles = particles;
         this.epochs = epochs;
         this.inertia = inertia;
@@ -63,16 +61,30 @@ public class Swarm {
     /**
      * Execute the algorithm.
      */
-    public void run () throws InterruptedException {
+    public void run () {
         Particle[] particles = initialize();
-        Particle[] startParticles = particles.clone();
+        double [][] startParticles = new double [particles.length][particles.length];
+
+        for(int i = 0; i < particles.length; i++) {
+            startParticles[i][0] = particles[i].getPosition().getX();
+            startParticles[i][1] = particles[i].getPosition().getY();
+        }
+
         double oldEval = bestEval;
         System.out.println("--------------------------EXECUTING-------------------------");
         System.out.println("Global Best Evaluation (Epoch " + 0 + "):\t"  + bestEval);
 
         for (int i = 0; i < epochs; i++) {
-            //Thread.sleep(500);
-           drawer.clearField(startParticles);
+            try{
+                Thread.sleep(100);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            controller.doClearCanvas();
+            for(double[] startParticle: startParticles) {
+                controller.doDrawStartParticles(startParticle[0], startParticle[1]);
+            }
+
             if (bestEval < oldEval) {
                 System.out.println("Global Best Evaluation (Epoch " + (i + 1) + "):\t" + bestEval);
                 oldEval = bestEval;
@@ -86,13 +98,9 @@ public class Swarm {
             for (Particle p : particles) {
                 updateVelocity(p);
                 p.updatePosition();
-                drawer.drawParticle(p,Color.RED,3);
-                drawer.updateGraphicsContext();
+                controller.doDrawParticle(p.getPosition().getX(), p.getPosition().getY());
             }
 
-        }
-        for(Particle p : particles){
-            drawer.drawParticle(p,Color.BLUE,5);
         }
 
 
@@ -112,7 +120,7 @@ public class Swarm {
         Particle[] particles = new Particle[numOfParticles];
         for (int i = 0; i < numOfParticles; i++) {
             Particle particle = new Particle(beginRange, endRange);
-            drawer.drawParticle(particle, Color.BLACK,5);
+            //drawer.drawParticle(particle, Color.BLACK,5);
             particles[i] = particle;
             updateGlobalBest(particle);
         }

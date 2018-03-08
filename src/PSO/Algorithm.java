@@ -1,26 +1,22 @@
 package PSO;
 
-import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import sample.Controller;
 
-import java.util.Scanner;
+public class Algorithm implements Runnable{
 
-public class Algorithm {
-    @FXML
-    Canvas canvas;
-    GraphicsContext gc;
+    private Controller controller;
 
-    public Algorithm(Canvas canvas, GraphicsContext gc){
-        this.canvas = canvas;
-        this.gc = gc;
+    public Algorithm(Controller controller){
+        this.controller = controller;
+
     }
 
-    int particles, epochs;
+    private int particles, epochs;
 
-    public void menu () throws InterruptedException {
+    @Override
+    public void run (){
         Swarm swarm;
-        swarm = new Swarm(particles, epochs,canvas,gc);
+        swarm = new Swarm(controller, particles, epochs);
         swarm.run();
     }
 
@@ -30,26 +26,4 @@ public class Algorithm {
     public void setEpochs(int epochs){
         this.epochs = epochs;
     }
-
-    /*private int getUserInt () {
-        int input;
-        while (true) {
-            Scanner sc = new Scanner(System.in);
-
-            if (sc.hasNextInt()) {
-                input = sc.nextInt();
-                System.out.print(input);
-
-                if (input <= 0) {
-                    System.out.println("Number must be positive.");
-                } else {
-                    break;
-                }
-
-            } else {
-                System.out.println("Invalid input.");
-            }
-        }
-        return input;
-    }*/
 }
