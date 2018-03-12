@@ -7,19 +7,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import sun.plugin2.util.ColorUtil;
 
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 public class Controller implements Initializable {
     @FXML
     Canvas canvas;
     private GraphicsContext gc;
+    private PSO.Function banana = new PSO.Function();
 
     private Algorithm algorithm;
 
@@ -31,37 +33,15 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TranslateTransition translateTransition = new TranslateTransition();
-        translateTransition.setDuration(Duration.seconds(0.5));
          gc = canvas.getGraphicsContext2D();
          algorithm = new Algorithm(this);
     }
     @FXML
     public void draw() {
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        double[][] function = new double[400][400];
-        double smallest = 14.0;
-        double biggest = 0.0;
-        for(int x = 0;x < 400; x++){
-            for(int y = 0;y < 400; y++){
-                double valueX = ColorHelper.normalizeValue(x,0,399,-1.,1.5);
-                double valueY = ColorHelper.normalizeValue(x,0,399,-1.,1.5);
-                function[x][y] = PSO.Function.parabel(valueX,valueY);
-                if(function[x][y] > biggest) biggest = function[x][y];
-                if(function[x][y] < smallest) smallest = function[x][y];
-            }
-        }
-        clearCanvas();
-
-        for(int x = 0;x < 100; x++) {
-            for (int y = 0; y < 100; y++) {
-                Color temp = ColorHelper.getColor(function[x][y], smallest, biggest);
-                drawGraph(x,y,temp);
-            }
-        }
-        //Thread thread = new Thread(algorithm);
-        //thread.setDaemon(true);
-        //thread.start();
+        //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+        Thread thread = new Thread(algorithm);
+        thread.setDaemon(true);
+        thread.start();
     }
     @FXML
     public void setSwarmsize() {
@@ -72,11 +52,6 @@ public class Controller implements Initializable {
     public void setEpochs() {
         algorithm.setEpochs((int)epochslider.getValue());
         System.out.println(epochslider.getValue());
-    }
-
-    public void drawGraph(int x, int y, Color color){
-        gc.setFill(color);
-        gc.fillRect(x*2,y*2,2,2);
     }
 
     public void doDrawStartParticles(double x, double y){
@@ -96,6 +71,7 @@ public class Controller implements Initializable {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.setFill(Color.BLUE);
         gc.fillOval(scaleValue(1)-7,scaleValue(1)-7,15,15);
+        drawBananaFunction();
     }
 
     public void doDrawParticle(double x, double y){
@@ -106,12 +82,28 @@ public class Controller implements Initializable {
         gc.setFill(Color.RED);
         gc.fillRect(scaleValue(x),scaleValue(y),3,3);
     }
+    private void drawBananaFunction(){
+        ArrayList<Double> temp = new ArrayList<>();
+        for (int i=-100;i<100;i++){
+            for(int u=-100; u<100;u++){
+                int result = (int)banana.rosenbrock(u,i);
+                if(result>=1000000000) {
+                    gc.setFill(Color.WHITE);
+                }
+                else{
+                    gc.setFill(Color.BLACK);
+                }
+
+                gc.fillRect(scaleValue(u),scaleValue(i),1,1);
+            }
+        }
+    }
 
     private double scaleValue(double value){
         //Eingabe zwischen -100 und 101
         //Ausgabe zwischen 100 und 500
         //Skalierfunktion y=1,990049*value+300,0049
-        return (Configuration.instance.gradient*value+Configuration.instance.intersection);
+        return (Configuration.instance.gradient*value)+Configuration.instance.intersection;
     }
 }
 
