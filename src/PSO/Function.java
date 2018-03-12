@@ -1,6 +1,6 @@
 package PSO;
 
-class Function {
+public class Function {
 
     /**
      * Rosenbrock banana function:
@@ -8,10 +8,14 @@ class Function {
      * with {x, y} e [-1, 1.5]x[-1, 1.5]
      * Minimum: {1,1}
      */
-    static double rosenbrock(double x, double y){
+    public static double rosenbrock(double x, double y){
         double p1 = Math.pow(x-1, 2);
         double p2 = Math.pow(x, 2) - y;
         return p1 + 10 * Math.pow(p2, 2);
+    }
+
+    public static double parabel(double x, double y){
+        return Math.pow(x,2) + Math.pow(y,2);
     }
 
     /**
