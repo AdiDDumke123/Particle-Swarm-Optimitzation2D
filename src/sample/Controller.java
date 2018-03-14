@@ -41,7 +41,6 @@ public class Controller implements Initializable {
     }
     @FXML
     public void draw() {
-        //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         Thread thread = new Thread(algorithm);
         thread.setDaemon(true);
         thread.start();
@@ -63,7 +62,7 @@ public class Controller implements Initializable {
 
     public void drawStartParticles(double x, double y){
         gc.setFill(Color.BLACK);
-        gc.fillRect(scaleValue(x),scaleValue(y),1,1);
+        gc.fillRect(normalizeValue(x,-2,2,100,500),normalizeValue(y,-2,2,100,500),1,1);
     }
 
     public void doClearCanvas(){
@@ -73,7 +72,7 @@ public class Controller implements Initializable {
     public void clearCanvas(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         gc.setFill(Color.YELLOW);
-        gc.fillOval(scaleValue(1)-2,scaleValue(1)-2,10,10);
+        gc.fillOval(normalizeValue(1,-3,3,100,500),normalizeValue(1,-3,3,100,500),100,100);
         drawBananaFunction();
     }
 
@@ -83,23 +82,27 @@ public class Controller implements Initializable {
 
     public void drawParticle(double x, double y){
         gc.setFill(Color.RED);
-        gc.fillRect(scaleValue(x),scaleValue(y),3,3);
+        gc.fillRect(normalizeValue(x,-2,2,100,500),normalizeValue(y,-2,2,100,500),3,3);
     }
     private void drawBananaFunction() {
-        for(double i=-2;i<2;i=i+0.01){
-            for(double u=-2;u<2;u=u+0.01){
+        for(double i=-3;i<3;i=i+0.01){
+            for(double u=-3;u<3;u=u+0.01){
                 double result = banana.rosenbrock(u,i);
                 if(result<500&&result>200){
                     gc.setFill(Color.RED);
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
-                else if(result<200&result>100){
+                else if(result<200&result>50){
                     gc.setFill(Color.YELLOW);
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
 
                 }
-                else if(result<100&result>0){
+                else if(result<50&result>10){
                     gc.setFill(Color.BLUE);
+                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
+                }
+                else if(result<10&result>0){
+                    gc.setFill(Color.WHITE);
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
 
