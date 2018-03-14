@@ -90,24 +90,24 @@ public class Controller implements Initializable {
             for(double u=-3;u<3;u=u+0.01){
                 double result = banana.rosenbrock(u,i);
                 if(result<3000&&result>500){
-                    gc.setFill(Color.color(1,0.2,0.7,0.6));
+                    gc.setFill(Color.color(0,0,0,result*0.00012));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
                 if(result<500&&result>200){
-                    gc.setFill(Color.color(0.7,result*0.0005,result*0.0005,0.7));
+                    gc.setFill(Color.color(0,0,0,result*0.00025));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
                 else if(result<200&result>50){
-                    gc.setFill(Color.color(result*0.005,1,result*0.005,0.8));
+                    gc.setFill(Color.color(0,0,0,result*0.0005));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
 
                 }
                 else if(result<50&result>10){
-                    gc.setFill(Color.color(result*0.005,result*0.005,1,0.9));
+                    gc.setFill(Color.color(0,0,0,result*0.0075));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
                 else if(result<10&result>0){
-                    gc.setFill(Color.color(result*0.005,0.5,0.5,1));
+                    gc.setFill(Color.color(0,0,0,result*0.1));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
 
