@@ -71,9 +71,10 @@ public class Controller implements Initializable {
 
     public void clearCanvas(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        gc.setFill(Color.YELLOW);
-        gc.fillOval(normalizeValue(1,-3,3,100,500),normalizeValue(1,-3,3,100,500),100,100);
         drawBananaFunction();
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(normalizeValue(1,-3,3,100,500),normalizeValue(1,-3,3,100,500),10,10);
+
     }
 
     public void doDrawParticle(double x, double y){
@@ -88,21 +89,25 @@ public class Controller implements Initializable {
         for(double i=-3;i<3;i=i+0.01){
             for(double u=-3;u<3;u=u+0.01){
                 double result = banana.rosenbrock(u,i);
+                if(result<3000&&result>500){
+                    gc.setFill(Color.color(1,0.2,0.7,0.6));
+                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
+                }
                 if(result<500&&result>200){
-                    gc.setFill(Color.RED);
+                    gc.setFill(Color.color(0.7,result*0.0005,result*0.0005,0.7));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
                 else if(result<200&result>50){
-                    gc.setFill(Color.YELLOW);
+                    gc.setFill(Color.color(result*0.005,1,result*0.005,0.8));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
 
                 }
                 else if(result<50&result>10){
-                    gc.setFill(Color.BLUE);
+                    gc.setFill(Color.color(result*0.005,result*0.005,1,0.9));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
                 else if(result<10&result>0){
-                    gc.setFill(Color.WHITE);
+                    gc.setFill(Color.color(result*0.005,0.5,0.5,1));
                     gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
 
