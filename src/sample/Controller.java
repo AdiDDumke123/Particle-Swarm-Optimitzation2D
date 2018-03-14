@@ -86,31 +86,29 @@ public class Controller implements Initializable {
         gc.fillRect(scaleValue(x),scaleValue(y),3,3);
     }
     private void drawBananaFunction() {
-            gc.setFill(Color.BLUE);
-        for(int i=-500;i<500;i++){
-            for(int u=-500;u<500;u++){
+        for(double i=-2;i<2;i=i+0.01){
+            for(double u=-2;u<2;u=u+0.01){
                 double result = banana.rosenbrock(u,i);
-                if(result<5000&&result>500){
+                if(result<500&&result>200){
                     gc.setFill(Color.RED);
-                    gc.fillRect(scaleValue(u), scaleValue(i), 5, 5);
+                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
-                else if(result<500&result>100){
+                else if(result<200&result>100){
                     gc.setFill(Color.YELLOW);
-                    gc.fillRect(scaleValue(u), scaleValue(i), 5, 5);
+                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
+
                 }
                 else if(result<100&result>0){
                     gc.setFill(Color.BLUE);
-                    gc.fillRect(scaleValue(u), scaleValue(i), 5, 5);
+                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
                 }
 
             }
         }
 
     }
-   // private double scaleBanana(int value){
-     //   return (Configuration.instance.bananagradient*value)+Configuration.instance.intersection;
-    //}
-   public static double normalizeValue(double value, double min, double max, double newMin, double newMax) {
+
+   private static double normalizeValue(double value, double min, double max, double newMin, double newMax) {
 
        return (value - min) * (newMax - newMin) / (max - min) + newMin;
 
