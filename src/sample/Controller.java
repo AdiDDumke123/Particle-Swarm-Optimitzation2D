@@ -12,7 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.lang.reflect.Array;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Function;
@@ -60,7 +63,7 @@ public class Controller implements Initializable {
 
     public void drawStartParticles(double x, double y){
         gc.setFill(Color.BLACK);
-        gc.fillRect(scaleValue(x),scaleValue(y),5,5);
+        gc.fillRect(scaleValue(x),scaleValue(y),1,1);
     }
 
     public void doClearCanvas(){
@@ -82,27 +85,40 @@ public class Controller implements Initializable {
         gc.setFill(Color.RED);
         gc.fillRect(scaleValue(x),scaleValue(y),3,3);
     }
-    private void drawBananaFunction(){
-        ArrayList<Double> temp = new ArrayList<>();
-        for (int i=-100;i<100;i++){
-            for(int u=-100; u<100;u++){
-                int result = (int)banana.rosenbrock(u,i);
-                if(result>=1000000000) {
-                    gc.setFill(Color.WHITE);
+    private void drawBananaFunction() {
+            gc.setFill(Color.BLUE);
+        for(int i=-100;i<100;i++){
+            for(int u=-100;u<100;u++){
+                double result = banana.rosenbrock(u,i);
+                if(result<5000&&result>500){
+                    gc.setFill(Color.RED);
+                    gc.fillRect(scaleBanana(u), scaleBanana(i), 1, 1);
                 }
-                else{
-                    gc.setFill(Color.BLACK);
+                else if(result<500&result>100){
+                    gc.setFill(Color.YELLOW);
+                    gc.fillRect(scaleBanana(u), scaleBanana(i), 1, 1);
+                }
+                else if(result<100&result>0){
+                    gc.setFill(Color.BLUE);
+                    gc.fillRect(scaleBanana(u), scaleBanana(i), 1, 1);
                 }
 
-                gc.fillRect(scaleValue(u),scaleValue(i),1,1);
             }
         }
+
+    }
+    private double scaleBanana(int value){
+        return (Configuration.instance.bananagradient*value)+Configuration.instance.intersection;
+    }
+    private double scaleColor(double value){
+        return value*0.0005;
     }
 
     private double scaleValue(double value){
-        //Eingabe zwischen -100 und 101
+        //Eingabe zwischen -2 und 2
         //Ausgabe zwischen 100 und 500
-        //Skalierfunktion y=1,990049*value+300,0049
+        //Skalierfunktion y=100*value+300
+       // double a = (Configuration.instance.gradient*value)+Configuration.instance.intersection;
         return (Configuration.instance.gradient*value)+Configuration.instance.intersection;
     }
 }
