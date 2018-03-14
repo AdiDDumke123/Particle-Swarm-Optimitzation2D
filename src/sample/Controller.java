@@ -72,8 +72,8 @@ public class Controller implements Initializable {
 
     public void clearCanvas(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        gc.setFill(Color.BLUE);
-        gc.fillOval(scaleValue(1)-7,scaleValue(1)-7,15,15);
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(scaleValue(1)-2,scaleValue(1)-2,10,10);
         drawBananaFunction();
     }
 
@@ -87,35 +87,37 @@ public class Controller implements Initializable {
     }
     private void drawBananaFunction() {
             gc.setFill(Color.BLUE);
-        for(int i=-100;i<100;i++){
-            for(int u=-100;u<100;u++){
+        for(int i=-500;i<500;i++){
+            for(int u=-500;u<500;u++){
                 double result = banana.rosenbrock(u,i);
                 if(result<5000&&result>500){
                     gc.setFill(Color.RED);
-                    gc.fillRect(scaleBanana(u), scaleBanana(i), 1, 1);
+                    gc.fillRect(scaleValue(u), scaleValue(i), 5, 5);
                 }
                 else if(result<500&result>100){
                     gc.setFill(Color.YELLOW);
-                    gc.fillRect(scaleBanana(u), scaleBanana(i), 1, 1);
+                    gc.fillRect(scaleValue(u), scaleValue(i), 5, 5);
                 }
                 else if(result<100&result>0){
                     gc.setFill(Color.BLUE);
-                    gc.fillRect(scaleBanana(u), scaleBanana(i), 1, 1);
+                    gc.fillRect(scaleValue(u), scaleValue(i), 5, 5);
                 }
 
             }
         }
 
     }
-    private double scaleBanana(int value){
-        return (Configuration.instance.bananagradient*value)+Configuration.instance.intersection;
-    }
-    private double scaleColor(double value){
-        return value*0.0005;
-    }
+   // private double scaleBanana(int value){
+     //   return (Configuration.instance.bananagradient*value)+Configuration.instance.intersection;
+    //}
+   public static double normalizeValue(double value, double min, double max, double newMin, double newMax) {
+
+       return (value - min) * (newMax - newMin) / (max - min) + newMin;
+
+   }
 
     private double scaleValue(double value){
-        //Eingabe zwischen -2 und 2
+        //Eingabe zwischen -100 und 100
         //Ausgabe zwischen 100 und 500
         //Skalierfunktion y=100*value+300
        // double a = (Configuration.instance.gradient*value)+Configuration.instance.intersection;

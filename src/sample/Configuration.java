@@ -2,8 +2,8 @@ package sample;
 
 public enum Configuration {
     instance;
-    public double gradient=-500;
-    public double intersection=300;
+    public double gradient=-10;
+    public double intersection=493;
     public double bananagradient=-2;
 
 }
