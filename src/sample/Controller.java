@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import sun.plugin2.gluegen.runtime.CPU;
 
 import java.lang.reflect.Array;
 import java.math.RoundingMode;
@@ -47,6 +48,7 @@ public class Controller implements Initializable {
     }
     @FXML
     public void setSwarmsize() {
+        epochslider.setValue(0);
         algorithm.setParticles((int)swarmslider.getValue());
         System.out.println(swarmslider.getValue());
     }
@@ -62,7 +64,11 @@ public class Controller implements Initializable {
 
     public void drawStartParticles(double x, double y){
         gc.setFill(Color.BLACK);
-        gc.fillRect(normalizeValue(x,-2,2,100,500),normalizeValue(y,-2,2,100,500),1,1);
+        gc.fillRect(normalizeValue(x,Configuration.instance.minimum,Configuration.instance.maximium
+                ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,normalizeValue(y,Configuration.instance.minimum,Configuration.instance.maximium,
+                        Configuration.instance.drawminimum,Configuration.instance.drawMaximum),
+                Configuration.instance.sizeOfStartParticle,Configuration.instance.sizeOfStartParticle);
     }
 
     public void doClearCanvas(){
@@ -73,7 +79,11 @@ public class Controller implements Initializable {
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
         drawBananaFunction();
         gc.setFill(Color.YELLOW);
-        gc.fillOval(normalizeValue(1,-3,3,100,500),normalizeValue(1,-3,3,100,500),10,10);
+        gc.fillOval(normalizeValue(Configuration.instance.low-0.09,Configuration.instance.minimum, Configuration.instance.maximium
+                ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,normalizeValue(Configuration.instance.low-0.09,Configuration.instance.minimum,Configuration.instance.maximium
+                        ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,Configuration.instance.sizeOfOval,Configuration.instance.sizeOfOval);
 
     }
 
@@ -83,33 +93,28 @@ public class Controller implements Initializable {
 
     public void drawParticle(double x, double y){
         gc.setFill(Color.RED);
-        gc.fillRect(normalizeValue(x,-2,2,100,500),normalizeValue(y,-2,2,100,500),3,3);
+        gc.fillRect(normalizeValue(x,Configuration.instance.minimum,Configuration.instance.maximium,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,normalizeValue(y,Configuration.instance.minimum,Configuration.instance.maximium
+                        ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum),Configuration.instance.sizeOfParticle,Configuration.instance.sizeOfParticle);
     }
     private void drawBananaFunction() {
-        for(double i=-3;i<3;i=i+0.01){
-            for(double u=-3;u<3;u=u+0.01){
+        for(double i=Configuration.instance.minimum;i<Configuration.instance.maximium;i=i+Configuration.instance.resolution){
+            for(double u=Configuration.instance.minimum;u<Configuration.instance.maximium;u=u+Configuration.instance.resolution){
                 double result = banana.rosenbrock(u,i);
-                if(result<3000&&result>500){
-                    gc.setFill(Color.color(0,0,0,result*0.00012));
-                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
+                if(result<4000&&result>800){
+                    gc.setFill(Color.color(0,0,0,result*0.0003));
                 }
-                if(result<500&&result>200){
-                    gc.setFill(Color.color(0,0,0,result*0.00025));
-                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
+                else if(result<800&&result>200){
+                    gc.setFill(Color.color(1,0.25,0,result*0.00125));
                 }
-                else if(result<200&result>50){
-                    gc.setFill(Color.color(0,0,0,result*0.0005));
-                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
-
+                else if(result<200&&result>100){
+                   gc.setFill(Color.color(0,1,0.25,result*0.005));
                 }
-                else if(result<50&result>10){
-                    gc.setFill(Color.color(0,0,0,result*0.0075));
-                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
+                else if(result<100&&result>=0){
+                    gc.setFill(Color.color(0,0.1,0.5,result*0.01));
                 }
-                else if(result<10&result>0){
-                    gc.setFill(Color.color(0,0,0,result*0.1));
-                    gc.fillRect(normalizeValue(u,-2,2,100,500),normalizeValue(i,-2,2,100,500),1,1);
-                }
+                gc.fillRect(normalizeValue(u,Configuration.instance.minimum,Configuration.instance.maximium,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                        ,normalizeValue(i,Configuration.instance.minimum,Configuration.instance.maximium,Configuration.instance.drawminimum,Configuration.instance.drawMaximum),1,1);
 
             }
         }
@@ -121,13 +126,5 @@ public class Controller implements Initializable {
        return (value - min) * (newMax - newMin) / (max - min) + newMin;
 
    }
-
-    private double scaleValue(double value){
-        //Eingabe zwischen -100 und 100
-        //Ausgabe zwischen 100 und 500
-        //Skalierfunktion y=100*value+300
-       // double a = (Configuration.instance.gradient*value)+Configuration.instance.intersection;
-        return (Configuration.instance.gradient*value)+Configuration.instance.intersection;
-    }
 }
 
