@@ -1,25 +1,19 @@
 package sample;
 
 import PSO.Algorithm;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
-import sun.plugin2.gluegen.runtime.CPU;
-
-import java.lang.reflect.Array;
-import java.math.RoundingMode;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
+
+
 import java.util.ResourceBundle;
-import java.util.function.Function;
+
 
 public class Controller implements Initializable {
     @FXML
@@ -28,6 +22,7 @@ public class Controller implements Initializable {
     private PSO.Function banana = new PSO.Function();
 
     private Algorithm algorithm;
+    private Thread thread;
 
     @FXML
     private Slider swarmslider;
@@ -35,16 +30,27 @@ public class Controller implements Initializable {
     @FXML
     private Slider epochslider;
 
+    @FXML
+    private Button button;
+
+    public void setButtonDisabled(boolean value){
+        button.setDisable(value);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
          gc = canvas.getGraphicsContext2D();
          algorithm = new Algorithm(this);
+
+
     }
     @FXML
     public void draw() {
-        Thread thread = new Thread(algorithm);
+        thread = new Thread(algorithm);
+        button.setDisable(true);
         thread.setDaemon(true);
         thread.start();
+
     }
     @FXML
     public void setSwarmsize() {
@@ -102,7 +108,7 @@ public class Controller implements Initializable {
             for(double u=Configuration.instance.minimum;u<Configuration.instance.maximium;u=u+Configuration.instance.resolution){
                 double result = banana.rosenbrock(u,i);
                 if(result<4000&&result>800){
-                    gc.setFill(Color.color(0,0,0,result*0.0003));
+                    gc.setFill(Color.color(0,0,0,result*0.00025));
                 }
                 else if(result<800&&result>200){
                     gc.setFill(Color.color(1,0.25,0,result*0.00125));
