@@ -77,7 +77,7 @@ public class Swarm {
 
         for (int i = 0; i < epochs; i++) {
             try{
-                Thread.sleep(100);
+                Thread.sleep(50);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }

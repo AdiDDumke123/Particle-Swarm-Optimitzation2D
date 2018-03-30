@@ -11,8 +11,7 @@
     <Canvas fx:id="canvas" height="800.0" width="800.0" layoutX="100" layoutY="100" />
     <Button fx:id="button" layoutX="50.0" layoutY="50.0" onAction="#draw" text="Start" />
     <Slider fx:id="swarmslider" layoutX="50.0" layoutY="100.0" onMouseReleased="#setSwarmsize" min="1" max="50" majorTickUnit="1"/>
-    <Text text="slice Value" layoutX="200.0" layoutY="110.0"/>
+    <Text text="swarm size" layoutX="200.0" layoutY="110.0"/>
     <Slider fx:id="epochslider" layoutX="50.0" layoutY="120.0" onMouseReleased="#setEpochs" min="0" max="5000" majorTickUnit="1"/>
-    <Text text="Epochs" layoutX="200.0" layoutY="130.0"/>
-
+    <Text text="iterations" layoutX="200.0" layoutY="130.0"/>
 </AnchorPane>
