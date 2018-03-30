@@ -1,21 +1,19 @@
 package sample;
 
 import PSO.Algorithm;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
-
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
+
+
 import java.util.ResourceBundle;
-import java.util.function.Function;
+
 
 public class Controller implements Initializable {
     @FXML
@@ -24,6 +22,7 @@ public class Controller implements Initializable {
     private PSO.Function banana = new PSO.Function();
 
     private Algorithm algorithm;
+    private Thread thread;
 
     @FXML
     private Slider swarmslider;
@@ -31,20 +30,31 @@ public class Controller implements Initializable {
     @FXML
     private Slider epochslider;
 
+    @FXML
+    private Button button;
+
+    public void setButtonDisabled(boolean value){
+        button.setDisable(value);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
          gc = canvas.getGraphicsContext2D();
          algorithm = new Algorithm(this);
+
+
     }
     @FXML
     public void draw() {
-        //gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        Thread thread = new Thread(algorithm);
+        thread = new Thread(algorithm);
+        button.setDisable(true);
         thread.setDaemon(true);
         thread.start();
+
     }
     @FXML
     public void setSwarmsize() {
+        epochslider.setValue(0);
         algorithm.setParticles((int)swarmslider.getValue());
         System.out.println(swarmslider.getValue());
     }
@@ -60,7 +70,11 @@ public class Controller implements Initializable {
 
     public void drawStartParticles(double x, double y){
         gc.setFill(Color.BLACK);
-        gc.fillRect(scaleValue(x),scaleValue(y),5,5);
+        gc.fillRect(normalizeValue(x,Configuration.instance.minimum,Configuration.instance.maximium
+                ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,normalizeValue(y,Configuration.instance.minimum,Configuration.instance.maximium,
+                        Configuration.instance.drawminimum,Configuration.instance.drawMaximum),
+                Configuration.instance.sizeOfStartParticle,Configuration.instance.sizeOfStartParticle);
     }
 
     public void doClearCanvas(){
@@ -69,9 +83,14 @@ public class Controller implements Initializable {
 
     public void clearCanvas(){
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
-        gc.setFill(Color.BLUE);
-        gc.fillOval(scaleValue(1)-7,scaleValue(1)-7,15,15);
         drawBananaFunction();
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(normalizeValue(Configuration.instance.low-0.09,Configuration.instance.minimum, Configuration.instance.maximium
+                ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,normalizeValue(Configuration.instance.low-0.09,Configuration.instance.minimum,Configuration.instance.maximium
+                        ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,Configuration.instance.sizeOfOval,Configuration.instance.sizeOfOval);
+
     }
 
     public void doDrawParticle(double x, double y){
@@ -80,30 +99,38 @@ public class Controller implements Initializable {
 
     public void drawParticle(double x, double y){
         gc.setFill(Color.RED);
-        gc.fillRect(scaleValue(x),scaleValue(y),3,3);
+        gc.fillRect(normalizeValue(x,Configuration.instance.minimum,Configuration.instance.maximium,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                ,normalizeValue(y,Configuration.instance.minimum,Configuration.instance.maximium
+                        ,Configuration.instance.drawminimum,Configuration.instance.drawMaximum),Configuration.instance.sizeOfParticle,Configuration.instance.sizeOfParticle);
     }
-    private void drawBananaFunction(){
-        ArrayList<Double> temp = new ArrayList<>();
-        for (int i=-100;i<100;i++){
-            for(int u=-100; u<100;u++){
-                int result = (int)banana.rosenbrock(u,i);
-                if(result>=1000000000) {
-                    gc.setFill(Color.WHITE);
+    private void drawBananaFunction() {
+        for(double i=Configuration.instance.minimum;i<Configuration.instance.maximium;i=i+Configuration.instance.resolution){
+            for(double u=Configuration.instance.minimum;u<Configuration.instance.maximium;u=u+Configuration.instance.resolution){
+                double result = banana.rosenbrock(u,i);
+                if(result<4000&&result>800){
+                    gc.setFill(Color.color(0,0,0,result*0.00025));
                 }
-                else{
-                    gc.setFill(Color.BLACK);
+                else if(result<800&&result>200){
+                    gc.setFill(Color.color(1,0.25,0,result*0.00125));
                 }
+                else if(result<200&&result>100){
+                   gc.setFill(Color.color(0,1,0.25,result*0.005));
+                }
+                else if(result<100&&result>=0){
+                    gc.setFill(Color.color(0,0.1,0.5,result*0.01));
+                }
+                gc.fillRect(normalizeValue(u,Configuration.instance.minimum,Configuration.instance.maximium,Configuration.instance.drawminimum,Configuration.instance.drawMaximum)
+                        ,normalizeValue(i,Configuration.instance.minimum,Configuration.instance.maximium,Configuration.instance.drawminimum,Configuration.instance.drawMaximum),1,1);
 
-                gc.fillRect(scaleValue(u),scaleValue(i),1,1);
             }
         }
+
     }
 
-    private double scaleValue(double value){
-        //Eingabe zwischen -100 und 101
-        //Ausgabe zwischen 100 und 500
-        //Skalierfunktion y=1,990049*value+300,0049
-        return (Configuration.instance.gradient*value)+Configuration.instance.intersection;
-    }
+   private static double normalizeValue(double value, double min, double max, double newMin, double newMax) {
+
+       return (value - min) * (newMax - newMin) / (max - min) + newMin;
+
+   }
 }
 
